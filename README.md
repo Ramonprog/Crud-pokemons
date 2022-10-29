@@ -1,104 +1,68 @@
-![](https://i.imgur.com/xG74tOh.png)
+# API Pokemons 
 
-# Exercício 01
+RESTful API para listagem de pokemons, desenvolvida em Node.js com JavaScript e Express.js,
+usando Bcrypt para encriptar senhas e Jwt para autenticar usuario!
 
-## Criação de API com autenticação
+## Features
 
-Você acaba de receber uma proposta como freelancer para construir uma API que irá catalogar **Pokemons**. Entretanto, não se trata de uma simples API, pois ela possuirá autenticação para que cada usuario logado possa catalogar seus **Pokemons**.
+### Criação e login de usuários
 
-Sendo assim, vamos aos requisitos proposto pelo contratante.
+#### Criando usuário
 
-1 - Deverá existir um banco de dados chamado `catalogo_pokemons` com as tabelas descritas abaixo e todo código de criação das tabelas deverá se colocado no arquivo `dump.sql`
-
-a) Tabela `usuarios` com os campos:
-
-- id - identificador único do usuário como chave primaria e auto incremento;
-- nome - (obrigatório)
-- email - (obrigatório e único)
-- senha - (obrigatório)
-
-b) Tabela `pokemons` com os campos
-
-- id - identificador único do pokemon como chave primaria e auto incremento;
-- usuario_id - (obrigatório)
-- nome - (obrigatório)
-- habilidades - (obrigatótio)
-- imagem
-- apelido
-
-2 - Para a entidade `usuarios` deverá ser implementado as seguintes funcionalidades.
-
-a) Cadastro de usuário
-
-- A senha do usuário deverá ser criptografada usando a biblioteca `bcrypt` antes de salvar o cadastro.
-
-b) Login de usuário
-
-- Validar as credenciais do usuário usando a biblioteca `bcrypt`.
-- Gerar o token de autenticação com a biblioteca `jsonwebtoken`.
-
-3 - Para a entidade `pokemons` deverá ser implementado as seguintes funcionalidades.
-
-a) Cadastro do pokemons
-
-b) Atualização apenas do apelido do pokemon
-
-c) Listagem completa dos pokemons
-
-d) Listagem de apenas um pokemon filtrado pelo seu id
-
-e) Exclusão do pokemon
-
-É obrigatório para as funcionalidades da entidade `pokemons`:
-
-- Receber o token do header da requisição (_authorization_) no formato `Bearer Token` e validar o usuário logado em todos os endpoints.
-- O campo `usuario_id` não deve ser capturado do body da requisição. Deve ser obtido do token recebido no header.
-- No cadastro de pokemon, o campo `habilidades` deverá receber apenas uma string de habilidades separadas por vírgulas.
-- Na listagem de pokemons o campo `habilidades` deverá retornar um array de habilidades.
-
-_Obs.: É preciso realizar todas as validações necessárias para evitar erros no banco de dados_
-
-Exemplo do body para cadastro do pokemon:
-
+```http
+  POST /usuario
 ```
-{
-    "nome": "Pikachu",
-    "apelido": "pikachu",
-    "habilidades": "static, lightning-rod",
-    "imagem": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg"
-}
+Esse endpoint, é responsável pela criação de conta do treinador Pokemon.
+
+#### Login
+
+```http
+  POST /login
 ```
+Esse endpoint, é responsável pela autenticação, permitindo que apenas usuários logados consigam 
+acessar endpoints. 
 
-Exemplo de retorno na listagem de pokemons:
+#### Adicionando um pokemon
 
+```http
+  POST /pokemon
 ```
-[
-    {
-        "id": 1,
-        "usuario": "Nome do usuário responsável"
-        "nome": "Pikachu",
-        "apelido": "pikachu",
-        "habilidades": ["static", "lightning-rod"],
-        "imagem": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg"
-    },
-    {
-        "id": 2,
-        "usuario": "Nome do usuário responsável"
-        "nome": "Bulbasaur",
-        "apelido": "bulbasaur",
-        "habilidades": ["overgrow", "chlorophyll"],
-        "imagem": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
-    }
-]
+Esse endpoint, é responsável por adicionar pokemons ao usuário caso esteja logado, proibindo pokemons duplicados. 
+
+#### Alteração
+
+```http
+  POST /alterandoApelido
 ```
+Esse endpoint, é responsável por alterar o apelido do Pokemon, que tal em vez de "Bulbasaur" chaamar "Bulba".
 
----
+#### Listagem Pokemons
 
-Preencha a checklist para finalizar o exercício:
+```http
+  GET /pokemon
+```
+Esse endpoint, é responsável por listar todos os seu pokes.
 
-- [ ] Resolver o exercício revendo a aula se necessário
-- [ ] Adicionar as mudanças aos commits (`git add .` para adicionar todos os arquivos ou `git add nome_do_arquivo` para adicionar um arquivo específico)
-- [ ] Commitar a cada mudança significativa ou na finalização do exercício (`git commit -m "Mensagem do commit"`)
-- [ ] Pushar os commits no seu fork na origem (`git push origin nome-da-branch`)
+#### Filtrando poke
 
-###### tags: `exercícios` `lógica` `banco de dados` `sql` `postgres`
+```http
+  GET /pokemon/:id
+```
+Esse endpoint, é responsável por filtrar a listagem de pokes pelo id, retornando apenas 1 Poke.
+
+#### Deletando Poke
+
+```http
+  DELETE /pokemon/:id
+```
+Esse endpoint, é responsável deletar um determinado pokemon.
+
+
+
+## 🔗 Links
+[![Instagram](https://img.shields.io/badge/instagram-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.instagram.com/ramondev1/)
+[![linkedin](https://img.shields.io/badge/linkedin-ff0000?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ramon-dev/)
+
+
+## 🛠 Skills
+Node.js, Express, PostgresSQL, API, JavaScript
